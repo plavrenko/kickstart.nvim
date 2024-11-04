@@ -4,8 +4,13 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+-- Check if the operating system is macOS
+if vim.loop.os_uname().sysname == 'Darwin' then
+  -- Set to true if you have a Nerd Font installed and selected in the terminal
+  vim.g.have_nerd_font = true
+else
+  vim.g.have_nerd_font = false
+end
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
