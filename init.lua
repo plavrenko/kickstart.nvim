@@ -41,7 +41,16 @@ vim.opt.showmode = false
 vim.opt.breakindent = true
 
 -- Save undo history
-vim.opt.undofile = true
+-- Check if 'undotree' plugin is loaded and only then enable 'undofile'
+if vim.fn.exists ':UndotreeToggle' == 2 then
+  -- undotree is installed, do not save undo history
+  vim.opt.undofile = false
+else
+  -- undotree is not installed, save undo history
+  vim.opt.undofile = true
+end
+
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { noremap = true, silent = true })
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
@@ -851,6 +860,11 @@ require('lazy').setup({
   -- require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  {
+    'mbbill/undotree',
+    opts = {},
+    config = function() end,
+  },
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
