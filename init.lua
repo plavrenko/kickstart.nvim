@@ -41,14 +41,7 @@ vim.opt.showmode = false
 vim.opt.breakindent = true
 
 -- Save undo history
--- Check if 'undotree' plugin is loaded and only then enable 'undofile'
-if vim.fn.exists ':UndotreeToggle' == 2 then
-  -- undotree is installed, do not save undo history
-  vim.opt.undofile = false
-else
-  -- undotree is not installed, save undo history
-  vim.opt.undofile = true
-end
+vim.opt.undofile = true
 
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { noremap = true, silent = true })
 
@@ -128,7 +121,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
